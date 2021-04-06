@@ -1,0 +1,50 @@
+$result = DB::table('store.item_category_unit_type_mapping AS t1')
+            ->select('t1.id','t2.item_name','t3.make_name','t1.sapcification','t4.unit','t5.category','t1.type','t1.item_code','t1.active_status','t1.make_code' ,'t1.p_unit',
+            't1.s_unit','t1.item_category','t1.purchase_type','t1.otd','t1.cpc_approval','t1.conv_per_unit')
+            ->join('store.store_item_master AS t2', function ($join)use($institute_code) {
+                $join->on('t1.item_code', '=', 't2.item_code');
+                $join->where('t2.institute_code' ,'=' ,$institute_code);
+            })
+            ->leftjoin('store.make_master AS t3', function ($join)use($institute_code) {
+                $join->on('t1.make_code', '=', 't3.make_code');
+                $join->where('t3.institute_code' ,'=' ,$institute_code);
+            })
+            ->join('store.store_unit_master AS t4', function ($join)use($institute_code) {
+                $join->on('t4.unit_code','=' ,'t1.p_unit');
+                $join->where('t4.institute_code','=',$institute_code);
+            })
+            ->join('store.store_category_master AS t5', function ($join)use($institute_code) {
+                $join->on('t5.category_code' , '=' ,'t1.item_category');
+                $join->where('t5.institute_code','=',$institute_code);
+            })
+            ->where('t1.institute_code','=',$institute_code)
+            ->orderBy('id','ASC')
+            ->get();
+
+            $data =DB::table(countries AS c)
+                    ->select
+                    ->join->(states AS s)
+                    ->
+
+
+            SELECT    A.name
+from states as A 
+LEFT JOIN countries as B on A.country_id = B.id
+WHERE A.country_id = '101'
+
+
+ $data = DB::table('save_datas AS A')
+        ->select('a.id AS id','B.name AS country_name','C.name AS state_name','d.name AS city_name')
+        ->leftjoin('countries AS B', 'A.country_code', '=', 'B.id')
+        ->join('states AS C', 'A.state_code', '=', 'C.id')
+        ->join('cities AS d', 'A.city_code', '=', 'd.id')
+
+
+
+
+
+
+
+
+
+        SELECT COUNT(A.e_id) FROM (SELECT e_id FROM emp UNION SELECT s_id FROM student_data) A
